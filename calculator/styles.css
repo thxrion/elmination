@@ -1,0 +1,97 @@
+@font-face {
+    font-family: "Digital";
+    src: url("assets/digital.woff2") format("woff2"), url("assets/digital.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --font-family: Digital;
+
+    --padding1: 4px;
+    --padding2: 8px;
+    --padding3: 12px;
+    --padding4: 16px;
+    --padding5: 24px;
+
+    --key-border-radius: 8px;
+    --key-width: 64px;
+    --key-height: 48px;
+    --key-fontsize: 20px;
+    --key-fontcolor: black;
+    --key-backgroundcolor: white;
+
+    --display-fontsize: 24px;
+    --display-fontcolor: white;
+    --display-backgroundcolor: darkslategrey;
+
+    --background: lightgrey;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding2);
+    width: min-content;
+    height: min-content;
+    padding: var(--padding2);
+    margin: auto;
+    
+    background: var(--background);
+}
+
+.display {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    max-width: calc(var(--key-width) * 4 + var(--padding1) * 3);
+    min-height: calc(var(--display-fontsize) + 2 * var(--padding4));
+    padding: var(--padding4) var(--padding2);
+
+    background-color: var(--display-backgroundcolor);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.display__text {
+    display: inline;
+
+    margin: 0;
+
+    font-family: var(--font-family);
+    font-size: var(--display-fontsize);
+    color: var(--display-fontcolor);
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(4, var(--key-width));
+    gap: var(--padding1);
+}
+
+.keypad__zero {
+    grid-column: span 2;
+}
+    
+.keypad__equals {
+    grid-row: span 2;
+}
+
+.keypad__regular {
+    width: var(--key-width);
+    height: var(--key-height);
+}
+
+.keypad button {
+    border-radius: var(--key-border-radius);
+    border: 0;
+
+    color: var(--key-fontcolor);
+    background-color: var(--key-backgroundcolor);
+
+    font-family: var(--font-family);
+    font-size: var(--key-fontsize);
+}
