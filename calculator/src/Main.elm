@@ -1,3 +1,12 @@
+-- [-------------]
+--
+-- [+] [-] [*] [/]
+-- [1] [2] [3] [C]
+-- [4] [5] [6] [<]
+-- [7] [8] [9] [.]
+-- [0] [(] [)] [=]
+
+-- todo implement compute and add sound
 module Main exposing (..)
 
 import Browser
@@ -8,15 +17,9 @@ import Html.Events exposing (onClick)
 main : Program () Model Msg
 main =
     Browser.sandbox
-        { init = init
-        , update = update
-        , view = view
-        }
+        { init = "", update = update, view = view }
 
 type alias Model = String
-
-init : Model
-init = ""
 
 type Msg
     = Compute
@@ -39,68 +42,58 @@ update msg model =
     Pop ->  
         String.dropRight 1 model
 
-viewSimpleButton : String -> Html Msg
-viewSimpleButton key =
+viewButton : String -> Html Msg
+viewButton key =
     button
-        [ class "keypad__regular"
-        , onClick (Push key)
-        ]
+        [ class "keypad__button", onClick (Push key) ]
         [ text key ]
+
+viewResetButton : Html Msg
+viewResetButton =
+    button
+        [class "keypad__button", onClick Reset]
+        [text "C" ]
+
+viewBackButton : Html Msg
+viewBackButton =
+    button
+        [class "keypad__button", onClick Pop]
+        [text "BACK" ]
+
+viewComputeButton : Html Msg
+viewComputeButton =
+    button
+        [class "keypad__button", onClick Compute]
+        [text "=" ]
 
 view : Model -> Html Msg
 view model =
   div [ class "calculator"]
     [ div [ class "display" ]
-        [ p [ class "display__text" ] [ text model ]
+        [ p
+            [ class "display__text" ]
+            [ text model ]
         ]
-    , div [ class "keypad"]
-        [ viewSimpleButton "+"
-        , viewSimpleButton "-"
-        , viewSimpleButton "*"
-        , viewSimpleButton "/"
-
-        , viewSimpleButton "1"
-        , viewSimpleButton "2"
-        , viewSimpleButton "3"
-        , button
-            [ class "keypad__regular"
-            , onClick Reset
-            ]
-            [ text "C" ]
-
-        , viewSimpleButton "4"
-        , viewSimpleButton "5"
-        , viewSimpleButton "6"
-        , button
-            [ class "keypad__regular"
-            , onClick Pop
-            ]
-            [ text "BACK" ]
-
-        , viewSimpleButton "7"
-        , viewSimpleButton "8"
-        , viewSimpleButton "9"
-
-        , button
-            [ class "keypad__equals"
-            , onClick Compute
-            ]
-            [ text "=" ]
-
-        , button
-            [ class "keypad__zero"
-            , onClick (Push "0")
-            ]
-            [ text "0" ]
-        , viewSimpleButton "."
+    , div [ class "keypad" ]
+        [ viewButton "+"
+        , viewButton "-"
+        , viewButton "*"
+        , viewButton "/"
+        , viewButton "1"
+        , viewButton "2"
+        , viewButton "3"
+        , viewResetButton
+        , viewButton "4"
+        , viewButton "5"
+        , viewButton "6"
+        , viewBackButton
+        , viewButton "7"
+        , viewButton "8"
+        , viewButton "9"
+        , viewButton "."
+        , viewButton "0"
+        , viewButton "("
+        , viewButton ")"
+        , viewComputeButton
         ]
     ]
-
-
--- [-------------]
---
--- [+] [-] [*] [/]
--- [1] [2] [3] [C]
--- [4] [5] [6] [<]
--- [7] [8] [9] [=]
--- [  0  ] [.] [ ]
