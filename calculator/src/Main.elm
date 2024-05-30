@@ -6,13 +6,16 @@
 -- [7] [8] [9] [.]
 -- [0] [(] [)] [=]
 
--- todo implement compute and add sound
+-- todo add sound
 module Main exposing (..)
 
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
+import Round
+
+import Computer exposing (parse, evaluate)
 
 main : Program () Model Msg
 main =
@@ -32,7 +35,11 @@ update : Msg -> Model -> Model
 update msg model =
   case msg of
     Compute ->
-        model
+        case parse model of
+            Ok expr ->
+                Round.round 2 (evaluate expr)
+            Err _ ->
+                ""
     Reset ->
         ""
     Push x ->

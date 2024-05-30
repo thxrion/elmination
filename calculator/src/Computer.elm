@@ -1,13 +1,15 @@
--- todo: account for unary minus and error handling, mb refactor some parts
+-- todo: account for unary minus and error handling
 
-module Computer exposing (..)
+module Computer exposing (parse, evaluate)
 
-import Html exposing (div, p, text)
 import Parser exposing (..)
 
 
+{--
+import Html exposing (div, p, text)
+
 main =
-  case parse "2/(3+4)" of
+  case compute "2/(3+4)" of
     Err err ->
       text (Debug.toString err)
     Ok expr ->
@@ -15,6 +17,7 @@ main =
         [ p [] [ text (Debug.toString expr) ]
         , p [] [ text (String.fromFloat (evaluate expr)) ]
         ]
+--}
 
 type Expr
   = Integer Int
